@@ -15,7 +15,7 @@ import { Platform } from '@angular/cdk/platform';
 
 
 import { AppComponent } from './app.component';
-import { AppDateAdapter, APP_DATE_FORMATS } from './date-formats';
+import { AppDateAdapter, DAY_JS_DATE_ADAPTER_OPTIONS, DAY_JS_DATE_ADAPTER_FORMATS, APP_DATE_FORMAT_DEFAULTS } from './date-formats';
 
 @NgModule({
   declarations: [
@@ -31,15 +31,13 @@ import { AppDateAdapter, APP_DATE_FORMATS } from './date-formats';
     MatNativeDateModule,
   ],
   providers: [
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMAT_DEFAULTS },
+    { provide: DAY_JS_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     {
       provide: DateAdapter,
       useClass: AppDateAdapter,
-      deps: [MAT_DATE_LOCALE, Platform]
+      // deps: [MAT_DATE_LOCALE, Platform]
     },
-    {
-      provide: MAT_DATE_FORMATS,
-      useValue: APP_DATE_FORMATS
-    }
   ],
   bootstrap: [AppComponent]
 })
